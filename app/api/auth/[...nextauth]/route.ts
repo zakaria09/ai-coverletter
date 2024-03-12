@@ -19,14 +19,14 @@ export const authOptions: NextAuthOptions = {
       clientSecret: process.env.GITHUB_SECRET,
     }),
   ],
-  // callbacks: {
-  //   session: async ({ session, token }: any) => {
-  //     if (session?.user) {
-  //       session.user.id = token.sub;
-  //     }
-  //     return session;
-  //   }
-  // }
+  callbacks: {
+    session: async ({ session, token }: any) => {
+      if (session?.user) {
+        session.user.id = token.sub;
+      }
+      return session;
+    }
+  },
   debug: true
 };
 

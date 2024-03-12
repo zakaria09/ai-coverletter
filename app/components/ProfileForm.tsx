@@ -23,7 +23,11 @@ const formSchema = zod.object({
     .min(100, 'Too short make - should be a minimum of a 100 characters'),
 });
 
-export default function ProfileForm() {
+export default function ProfileForm({
+  details,
+}: {
+  details: (payload: {bio: string}) => void;
+}) {
   const form = useForm<zod.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -31,7 +35,9 @@ export default function ProfileForm() {
     },
   });
 
-  const handleSubmit = () => {};
+  const handleSubmit = () => {
+    details(form.getValues());
+  };
   return (
     <div className='flex justify-center'>
       <Form {...form}>
